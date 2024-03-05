@@ -2,6 +2,8 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.2.
 This is a simple task list application built with Angular.
 
+Node v20.9.0
+
 ## Features
 Add new tasks, 
 Mark tasks as completed, 
