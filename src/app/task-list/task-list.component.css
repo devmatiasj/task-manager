@@ -1,0 +1,46 @@
+.responsive-table {
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .responsive-table .p-datatable-thead th {
+    font-size: 12px;
+  }
+}
+
+.form{
+  margin: 10px;
+  align-items: center;
+}
+
+.title{
+  margin-bottom: 100px;
+  padding: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button{
+  margin-left: 5px;
+  background-color: black;
+  border-color: black;
+}
+
+.task-container{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: beige;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  height: 50px; 
+  margin-bottom: 10px;
+}
+
+.error-message {
+  color: red;
+}

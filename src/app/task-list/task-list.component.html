@@ -1,0 +1,32 @@
+<div class="table-container p-d-flex p-flex-column">
+  <h1 class="title">Task List</h1>
+  <div class="form">
+    <form (submit)="addTask()">
+      <input type="text" pInputText name="newTask" [(ngModel)]="newTask.task" placeholder="New task">
+      <button class="button" type="submit" pButton label="Add"></button>
+      <div *ngIf="taskError" class="error-message">
+        *Task cannot be empty
+      </div>
+    </form>
+  </div>
+  <p-table [value]="tasks" [paginator]="true" [rows]="10" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Order</th>
+        <th>Task</th>
+        <th>Completed</th>
+        <th>Action</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-task let-i="rowIndex">
+      <tr>
+        <td>{{ i+1 }}</td>
+        <td>{{ task.task }}</td>
+        <td>
+          <p-checkbox [ngModel]="task.checked" [binary]="true" inputId="binary" (onChange)="toggleTaskCompletion(task)"></p-checkbox>
+        </td>
+        <td><button class="p-button-danger" pButton type="button" icon="pi pi-trash" (click)="removeTask(task)"></button></td>
+      </tr>
+    </ng-template>
+  
+  </p-table>
