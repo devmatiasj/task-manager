@@ -3,19 +3,18 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 This is a simple task list application built with Angular.
 
 ## Features
-Add new tasks
-Mark tasks as completed
+Add new tasks, 
+Mark tasks as completed, 
 Remove tasks
 
 ## Technologies Used
 Angular
-RxJS
 HTML
 CSS
 Primeng
 
 ## Install dependencies:
-npm install
+`npm install`
 
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
