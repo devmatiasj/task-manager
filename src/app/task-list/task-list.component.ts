@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Task } from '../models/task.model';
 import { TaskListService } from '../services/task-list.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-task-list',
@@ -11,16 +12,22 @@ export class TaskListComponent {
   tasks: Task[] = [];
   newTask: Task = {task: '', checked: false};
   taskError: boolean = false;
+  private tasksSubscription: Subscription | null = null;
 
   constructor(private taskListService: TaskListService) {
   }
 
   ngOnInit(): void {
-    this.getTasks();
+    this.tasksSubscription = this.taskListService.tasks$.subscribe(tasks => {
+      this.tasks = tasks;
+    });
+    this.taskListService.loadTasksFromLocalStorage();
   }
 
-  getTasks(): void {
-    this.tasks = this.taskListService.getTasks();
+  ngOnDestroy(): void {
+    if (this.tasksSubscription) {
+      this.tasksSubscription.unsubscribe();
+    }
   }
 
   saveTasks(): void {
@@ -42,11 +49,6 @@ export class TaskListComponent {
     const index = this.tasks.indexOf(task);
     this.tasks[index].checked = !this.tasks[index].checked;
     this.saveTasks();
-  }
-
-  updateTaskList(task: Task): void{
-    const index = this.tasks.indexOf(task);
-    this.tasks[index].checked = task.checked;
   }
 
   removeTask(task: Task): void {

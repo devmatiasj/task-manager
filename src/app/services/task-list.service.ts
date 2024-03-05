@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Task } from '../models/task.model';
+import { BehaviorSubject } from 'rxjs';
 
 const TASKS_KEY = 'tasks';
 
@@ -7,17 +8,27 @@ const TASKS_KEY = 'tasks';
   providedIn: 'root'
 })
 export class TaskListService {
-  constructor() {}
+  private tasksSubject: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([]);
+  tasks$ = this.tasksSubject.asObservable();
 
-  getTasks(): Task[] {
+  constructor() {
+    this.loadTasksFromLocalStorage();
+  }
+
+  loadTasksFromLocalStorage(): void {
     const tasksString = localStorage.getItem(TASKS_KEY);
     if (tasksString) {
-      return JSON.parse(tasksString);
+      const tasks = JSON.parse(tasksString);
+      this.tasksSubject.next(tasks);
     }
-    return [];
+  }
+
+  getTasks(): Task[] {
+    return this.tasksSubject.getValue();
   }
 
   saveTasks(tasks: Task[]): void {
     localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
+    this.tasksSubject.next(tasks);
   }
 }
